@@ -1,0 +1,96 @@
+﻿@model Assignments.Models.SanPham
+
+@{
+    ViewData["Title"] = "DetailsSanPham";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 mb-4 mb-sm-0">
+            <dt>
+                @*@Html.DisplayNameFor(model => model.Anh)*@
+                Ảnh
+            </dt>
+            <dd>
+                @*@Html.DisplayFor(model => model.Anh)*@
+                @if (System.IO.Path.GetExtension(Model.Anh) == ".jpg" ||
+                System.IO.Path.GetExtension(Model.Anh) == ".png" ||
+                System.IO.Path.GetExtension(Model.Anh) == ".jpeg" ||
+                System.IO.Path.GetExtension(Model.Anh) == ".tiff" ||
+                System.IO.Path.GetExtension(Model.Anh) == ".giff")
+                {
+                    <img src="/images/@Model.Anh" height="200px" width="auto">
+                }
+                else
+                {
+                    <span>Ảnh lỗi ròi =))</span>
+                }
+            </dd>
+        </div>
+        <div class="col-sm-8 mb-8 mb-sm-0">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @*@Html.DisplayNameFor(model => model.SanPhamID)*@
+                    SanPhamID
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SanPhamID)
+                </dd>
+                <dt class="col-sm-2">
+                    @*@Html.DisplayNameFor(model => model.Ten)*@
+                    Tên sản phẩm
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Ten)
+                </dd>
+                <dt class="col-sm-2">
+                    @*@Html.DisplayNameFor(model => model.Gia)*@
+                    Giá
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Gia)
+                </dd>
+                <dt class="col-sm-2">
+                    @*@Html.DisplayNameFor(model => model.SoLuongBanDau)*@
+                    Số lượng ban đầu
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SoLuongBanDau)
+                </dd>
+                <dt class="col-sm-2">
+                    @*@Html.DisplayNameFor(model => model.NhaCungCap)*@
+                    Nhà cung cấp
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NhaCungCap)
+                </dd>
+                <dt class="col-sm-2">
+                    @*@Html.DisplayNameFor(model => model.GhiChu)*@
+                    Ghi chú
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.GhiChu)
+                </dd>
+                <dt class="col-sm-2">
+                    @*@Html.DisplayNameFor(model => model.TrangThai)*@
+                    Trạng thái
+                </dt>
+                <dd class="col-sm-10">
+                    @*@Html.DisplayFor(model => model.TrangThai)*@
+                    @if (Model.TrangThai == 0)
+                    {
+                        <p>Hết hàng</p>
+                    }
+                    else
+                    {
+                        <p>Còn hàng</p>
+                    }
+                </dd>
+                <div>
+                    <a href="@Url.Action("AddToCarts", "Home", new { id=Model.SanPhamID })" class="btn btn-sm" style="background-color: tomato">
+                        Thêm giỏ hàng
+                    </a>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>

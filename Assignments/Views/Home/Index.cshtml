@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Assignments.Models.SanPham>
+
+@{
+    ViewData["Title"] = "SanPham";
+    ShoppingDBConText dBContext = new ShoppingDBConText();
+}
+<div class="container" style="background-color: tomato; width: 1297px;">
+    <nav><p style="color: white; font-size: 40px; font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: center;">SẢN PHẨM</p></nav>
+</div>
+    <div class="shop-default shop-cards shop-tech container">
+        <div class="row" style="margin-top: 10px;">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3">
+                    <div class="block product no-border z-depth-2-top z-depth-2--hover" style="margin-top:20px">
+                        <div class="block-image">
+                        <a href="/Home/DetailsSanPham/@item.SanPhamID">
+                                @if (@item.Anh != null)
+                                {
+                                    <img src="~/images/@item.Anh" class="img-center" style="width: 100%;">
+
+                                }
+                                else
+                                {
+                                    <img class="img-center" style="width: 100%;" src="~/images/null.jpg" />
+                                }
+                            </a>
+                        </div>
+
+                        <div class="block-body text-center">
+                        <a href="/Home/DetailsSanPham/@item.SanPhamID" style="font-size: 20px; color: #0187a4; text-decoration: none">
+                                <h5><strong>@item.Ten</strong></h5>
+                            </a>
+                            <span class="product-description" style="font-size: 18px; color: red; font-weight: bold;">
+                                @item.Gia.ToString("n0") VND
+                            </span> <br>
+                            <div class="product-buttons mt-4">
+                                <div class="row align-items-center">
+                                    <div class="d-grid gap-2">
+                                        <button class="btn" type="button" style="height:50px; background-color: tomato">
+                                            <span style="font-size:20px; margin-right:15px"><i class="fa-solid fa-cart-shopping"></i></span>
+                                        <a href="/Home/AddToCarts/@item.SanPhamID" style="text-decoration: none; color: black">Thêm giỏ hàng</a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+

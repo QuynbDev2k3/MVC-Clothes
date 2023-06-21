@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Assignments.Models.GioHangChiTiet>
+
+@{
+    ViewData["Title"] = "Carts";
+    ShoppingDBConText shoppingDB = new ShoppingDBConText();
+    int quantity = 0;
+    int index = 0;
+    long tongtien = 0;
+    long thanhtien = 0;
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Thành tiền
+            </th>
+            <th>
+                Nhà cung cấp 
+            </th>
+            <th>
+                Ghi chú
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            index++;
+
+            List<SanPham> sanpham = shoppingDB.sanPhams.ToList();
+            SanPham sp = sanpham.Find(p => p.SanPhamID == item.SanPhamID);
+            thanhtien = item.SoLuong * sp.Gia;
+            tongtien += thanhtien;
+            <tr>
+            <td>
+                @*@sp.SanPhamID.ToString()*@
+                @index
+            </td>
+            <td>
+                    <img style="height:30px" class="pic" src="~/images/@sp.Anh" />
+            </td>
+            <td>
+                    @sp.Ten.ToString()
+            </td>
+            <td>
+                    <p style="color: red">@sp.Gia.ToString() VNĐ</p>
+            </td>
+                <td>
+                    @using (Html.BeginForm("CapNhatSoLuong", "Home"))
+                    {
+                        <input type="hidden" value="@item.SanPhamID" name="ID_product" />
+                        <input type="number" min="0" step="1" value="@item.SoLuong" name="Quantity" style=" width:100px;font-weight:600; text-align:center" />
+                        <input type="submit" style="height:30px; margin-bottom: 3px;" value="Update" class="btn btn-success" /> <br />
+                    }
+                </td>
+                <td>
+                    @thanhtien
+                </td>
+                <td>
+                    @sp.NhaCungCap.ToString()
+            </td>
+                <td>
+                    @sp.GhiChu.ToString()
+                </td>
+                <td>
+                    @if (@sp.TrangThai == 0)
+                    {
+                        <p>Hết hàng</p>
+                    }
+                    else
+                    {
+                        <p>Còn hàng</p>
+                    }
+                </td>
+        </tr>
+}
+            <tr class="align-middle alert" role="alert" style="margin-left: 200px">
+                <td colspan="7" style=" text-align:right">
+                    <h5><strong>TỔNG TIỀN (@Model.Count()): </strong></h5>
+                </td>
+                <td colspan="2" style=" text-align:left;color:red;font-size:20px;">
+                    <h5><strong name="thanhtien">@tongtien</strong></h5>
+                </td>
+            </tr>
+    </tbody>
+</table>
+@using(Html.BeginForm("HoaDon", "Home", FormMethod.Post))
+{ 
+        <button type="submit" style="margin-left: 1020px; width: 200px;" class="btn btn-primary">Thanh toán</button>
+}
