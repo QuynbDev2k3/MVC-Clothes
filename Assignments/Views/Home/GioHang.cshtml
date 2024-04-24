@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Assignments.Models.SanPham>
+﻿@model List<SanPham>
 
 @{
     ViewData["Title"] = "GioHang";
@@ -6,63 +6,65 @@
 }
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SanPhamID)
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Anh)*@
-                Ảnh
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Ten)*@
-                Tên sản phẩm
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Gia)*@
-                Giá
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.SoLuongBanDau)*@
-                Số lượng
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.NhaCungCap)*@
-                Nhà cung cấp
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.GhiChu)*@
-                Ghi chú
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.TrangThai)*@
-                Trạng thái
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @* @Html.DisplayNameFor(model => model.SanPhamID) *@
+            ID
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Anh)*@
+            Ảnh
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Ten)*@
+            Tên sản phẩm
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Gia)*@
+            Giá
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.SoLuongBanDau)*@
+            Số lượng
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.NhaCungCap)*@
+            Nhà cung cấp
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.GhiChu)*@
+            Ghi chú
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.TrangThai)*@
+            Trạng thái
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-            var soluong = 1;
-            List<GioHangChiTiet> gioHangChiTiets = shoppingDBConText.gioHangChiTiets.ToList();
-            <tr>
+    @foreach (var item in Model)
+    {
+        var soluong = 1;
+        var gioHangChiTiets = shoppingDBConText.gioHangChiTiets.FirstOrDefault(ghct => ghct.SanPhamID == item.SanPhamID);
+        <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.SanPhamID)
             </td>
             <td>
-                    @*@Html.DisplayFor(item => item.Anh)*@
-                    @if (System.IO.Path.GetExtension(item.Anh) == ".jpg" ||
-                   System.IO.Path.GetExtension(item.Anh) == ".png" ||
-                   System.IO.Path.GetExtension(item.Anh) == ".jpeg" ||
-                   System.IO.Path.GetExtension(item.Anh) == ".tiff" ||
-                   System.IO.Path.GetExtension(item.Anh) == ".giff")
-                    {
-                        <img src="/images/@item.Anh" height="100" width="auto">
-                    }
-                    else
-                    {
-                        <span>Ảnh lỗi ròi =))</span>
-                    }
+                @*@Html.DisplayFor(item => item.Anh)*@
+                @if (System.IO.Path.GetExtension(item.Anh) == ".jpg" ||
+                     System.IO.Path.GetExtension(item.Anh) == ".png" ||
+                     System.IO.Path.GetExtension(item.Anh) == ".jpeg" ||
+                     System.IO.Path.GetExtension(item.Anh) == ".tiff" ||
+                     System.IO.Path.GetExtension(item.Anh) == ".giff")
+                {
+                    <img src="/images/@item.Anh" height="100" width="auto">
+                }
+                else
+                {
+                    <span>Ảnh lỗi ròi =))</span>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ten)
@@ -71,7 +73,7 @@
                 @Html.DisplayFor(modelItem => item.Gia)
             </td>
             <td>
-                    @gioHangChiTiets.
+                @gioHangChiTiets.SoLuong
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NhaCungCap)
@@ -81,16 +83,16 @@
             </td>
             <td>
                 @*@Html.DisplayFor(modelItem => item.TrangThai)*@
-                    @if (item.TrangThai == 0)
-                    {
-                        <p>Hết hàng</p>
-                    }
-                    else
-                    {
-                        <p>Còn hàng</p>
-                    }
+                @if (item.TrangThai == 0)
+                {
+                    <p>Hết hàng</p>
+                }
+                else
+                {
+                    <p>Còn hàng</p>
+                }
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>

@@ -17,7 +17,7 @@ namespace Assignments.Models
         public DbSet<User> users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=OH\\SQLEXPRESS;Initial Catalog=Assignments;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Data Source=QUY\\SQLEXPRESS;Initial Catalog=Assignments;Integrated Security=True");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assignments.Migrations
 {
     [DbContext(typeof(ShoppingDBConText))]
-    [Migration("20230406212123_Assignments")]
-    partial class Assignments
+    [Migration("20240424193409_db")]
+    partial class db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -165,7 +165,7 @@ namespace Assignments.Migrations
 
                     b.Property<string>("Anh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("GhiChu")
                         .IsRequired()

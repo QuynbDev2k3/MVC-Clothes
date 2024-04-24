@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Assignments.Migrations
 {
-    public partial class Assignments : Migration
+    public partial class db : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,7 +29,7 @@ namespace Assignments.Migrations
                 columns: table => new
                 {
                     SanPhamID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Anh = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    Anh = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Ten = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Gia = table.Column<int>(type: "int", nullable: false),
                     SoLuongBanDau = table.Column<int>(type: "int", nullable: false),
