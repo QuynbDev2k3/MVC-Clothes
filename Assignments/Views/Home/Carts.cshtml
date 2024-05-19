@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Carts";
+    <div>@TempData["OverQuantity"]</div>
     ShoppingDBConText shoppingDB = new ShoppingDBConText();
     int quantity = 0;
     int index = 0;
